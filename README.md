@@ -31,3 +31,27 @@
 - **module_ping.sh**: Cek SIM, sinyal, dan monitoring ping.
 - **module-adbau.sh**: Konfigurasi ADB dan USB tethering.
 - **module-batt.sh**: Manajemen pengisian baterai.
+
+
+# Magisk Modem Management Module
+
+Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
+
+## Cara Install
+
+1. Download `install.sh` dari GitHub:
+
+2. Jalankan script dengan Termux/Linux:
+
+
+Jika tidak menyertakan URL, default adalah `8.8.8.8`.
+
+3. Setelah proses selesai, module `modem-android.zip` akan tersimpan di SD card.
+
+4. Install module menggunakan Magisk Manager.
+
+## Pengaturan Tambahan
+
+- Anda bisa mengganti URL ping dengan menjalankan ulang script `install.sh` dan memberikan URL baru.
+
+Selamat menggunakan!
