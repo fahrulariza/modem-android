@@ -4,9 +4,10 @@
 
 1. Download atau clone repository ini.
 2. Jalankan `install.sh` untuk Linux/Android atau `install.bat` untuk Windows.
-   - Jika ingin mengganti URL ping, gunakan perintah:  
+   - Jika ingin mengganti URL ping, gunakan perintah:
+     Android / Linux  
      ```bash
-     ./install.sh "google.com"
+     https://github.com/fahrulariza/modem-android/blob/master/install.sh "google.com"
      ``` 
      atau 
      ```bat
