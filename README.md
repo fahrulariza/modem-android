@@ -23,7 +23,7 @@ Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan 
    ```bash
    bash ./install.sh "google.com"
    ```
-   Jika tidak menyertakan URL, default adalah `8.8.8.8`.
+   Jika tidak menyertakan URL, default adalah `8.8.8.8`. hasil pengisian URL tersimpan di /storage/emulated/0/modem.txt
 
 3. Setelah proses selesai, module `modem-android.zip` akan tersimpan di SD card.
 
