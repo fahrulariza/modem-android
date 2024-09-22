@@ -26,7 +26,7 @@ FILES=(
     "README.md"
 )
 
-BASE_URL="https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/"
+BASE_URL="https://raw.githubusercontent.com/fahrulariza/modem-android/master/"
 
 # Mengunduh setiap file ke lokasi yang sesuai
 for FILE in "${FILES[@]}"; do
