@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base URL for raw GitHub content
-BASE_URL="https://raw.githubusercontent.com/fahrulariza/modem-android/master"
+BASE_URL="https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master"
 
 # Create necessary directories
 mkdir -p META-INF/com/google/android
