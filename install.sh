@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Memastikan direktori modem-android ada
-mkdir -p /sdcard/modem-android
+mkdir -p /storage/emulated/0/modem-android
 
 # URL Ping yang diset melalui argumen
 URL_PING=${1:-"8.8.8.8"}
