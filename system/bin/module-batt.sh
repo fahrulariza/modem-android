@@ -1,32 +1,21 @@
 #!/system/bin/sh
 
-LOG_FILE="/sdcard/Module-log.txt"
-MAX_LOG_SIZE=200000
-CHARGE_STOP=100
-CHARGE_START=60
-
 log() {
-  if [ -f "$LOG_FILE" ]; then
-    LOG_SIZE=$(stat -c%s "$LOG_FILE")
-    if [ "$LOG_SIZE" -ge "$MAX_LOG_SIZE" ]; then
-      > "$LOG_FILE"
-    fi
+  echo "$(date '+%Y-%m-%d %H:%M:%S') | $1" >> /sdcard/Module-log.txt
+  log_size=$(stat -c%s /sdcard/Module-log.txt)
+  if [ $log_size -gt 204800 ]; then
+    echo "" > /sdcard/Module-log.txt
   fi
-  echo "$(date +'%Y-%m-%d %H:%M:%S') | $1" >> "$LOG_FILE"
 }
 
-check_battery() {
-  while true; do
-    BATTERY_LEVEL=$(dumpsys battery | grep level | awk '{print $2}')
-    if [ "$BATTERY_LEVEL" -ge "$CHARGE_STOP" ]; then
-      echo 0 > /sys/class/power_supply/battery/charging_enabled
-      log "Pengisian dihentikan, baterai mencapai $CHARGE_STOP%"
-    elif [ "$BATTERY_LEVEL" -le "$CHARGE_START" ]; then
-      echo 1 > /sys/class/power_supply/battery/charging_enabled
-      log "Pengisian dimulai kembali, baterai turun ke $CHARGE_START%"
-    fi
-    sleep 60
-  done
-}
-
-check_battery
+while true; do
+  battery_level=$(cat /sys/class/power_supply/battery/capacity)
+  if [ "$battery_level" -eq 100 ]; then
+    echo 0 > /sys/class/power_supply/battery/charging_enabled
+    log "Pengisian dihentikan di 100%."
+  elif [ "$battery_level" -eq 60 ]; then
+    echo 1 > /sys/class/power_supply/battery/charging_enabled
+    log "Pengisian diaktifkan kembali di 60%."
+  fi
+  sleep 60
+done
