@@ -9,7 +9,7 @@ mkdir -p "$BASE_DIR/system/bin"
 URL_PING=${1:-"8.8.8.8"}
 
 # Menulis URL ke file modem.txt
-echo "$URL_PING" > "$BASE_DIR/modem.txt"
+echo "$URL_PING" > "/storage/emulated/0/modem.txt"
 
 # Mengunduh file yang diperlukan
 echo "Mengunduh file untuk Magisk module..."
