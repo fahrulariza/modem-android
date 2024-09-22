@@ -1,44 +1,29 @@
 #!/system/bin/sh
 
-LOG_FILE="/sdcard/Module-log.txt"
-MAX_LOG_SIZE=200000
-
 log() {
-  if [ -f "$LOG_FILE" ]; then
-    LOG_SIZE=$(stat -c%s "$LOG_FILE")
-    if [ "$LOG_SIZE" -ge "$MAX_LOG_SIZE" ]; then
-      > "$LOG_FILE"
-    fi
-  fi
-  echo "$(date +'%Y-%m-%d %H:%M:%S') | $1" >> "$LOG_FILE"
-}
-
-configure_adb_usb() {
-  setprop persist.service.adb.enable 1
-  setprop persist.service.debuggable 1
-  setprop persist.sys.usb.config "mtp,adb"
-  log "Mengaktifkan ADB dan MTP"
-}
-
-check_android_version() {
-  ANDROID_VERSION=$(getprop ro.build.version.sdk)
-
-  if [ "$ANDROID_VERSION" -ge 21 ]; then
-    log "Versi Android >= 5, mengaktifkan debugging wireless pada port 5555"
-    setprop service.adb.tcp.port 5555
+  echo "$(date '+%Y-%m-%d %H:%M:%S') | $1" >> /sdcard/Module-log.txt
+  log_size=$(stat -c%s /sdcard/Module-log.txt)
+  if [ $log_size -gt 204800 ]; then
+    echo "" > /sdcard/Module-log.txt
   fi
 }
 
-configure_usb_tethering() {
-  # Check and enable USB tethering
-  svc usb setFunctions rndis
-  log "USB tethering diaktifkan, konfigurasi DHCP 192.168.88.1"
-}
+# Auto USB tethering
+log "Memulai pengecekan tethering USB."
+svc usb setFunctions rndis
 
-main() {
-  configure_adb_usb
-  configure_usb_tethering
-  check_android_version
-}
+# Set DHCP for tethering
+log "Mengatur DHCP tethering ke 192.168.88.0/24."
+settings put global tether_dhcp_range "192.168.88.0 192.168.88.24"
 
-main
+# Enable developer options and ADB
+log "Mengaktifkan opsi pengembang dan ADB."
+settings put global development_settings_enabled 1
+setprop persist.service.adb.enable 1
+setprop persist.service.debuggable 1
+setprop persist.sys.usb.config mtp,adb
+
+# Wireless debugging on port 5555
+log "Mengaktifkan wireless debugging."
+setprop service.adb.tcp.port 5555
+start adbd
