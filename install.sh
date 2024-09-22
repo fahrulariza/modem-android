@@ -1,22 +1,18 @@
 #!/bin/bash
 
-ping_url=${1:-"8.8.8.8"}
-sdcard_path="/sdcard/modem.txt"
-echo "$ping_url" > "$sdcard_path"
+URL=${1:-"8.8.8.8"}
+echo $URL > /sdcard/modem.txt
+echo "URL Ping telah diatur ke $URL"
 
-download_file() {
-  url=$1
-  path=$2
-  curl -L "$url" -o "$path"
-}
+mkdir -p /storage/emulated/0/modem-android
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/META-INF/com/google/android/update-binary -O /storage/emulated/0/modem-android/update-binary
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/META-INF/com/google/android/updater-script -O /storage/emulated/0/modem-android/updater-script
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module_ping.sh -O /storage/emulated/0/modem-android/module_ping.sh
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module-adbau.sh -O /storage/emulated/0/modem-android/module-adbau.sh
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module-batt.sh -O /storage/emulated/0/modem-android/module-batt.sh
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/module.prop -O /storage/emulated/0/modem-android/module.prop
+wget https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/readme.md -O /storage/emulated/0/modem-android/readme.md
 
-mkdir -p MagiskModemPing/META-INF/com/google/android/
-mkdir -p MagiskModemPing/system/bin/
-
-# Download necessary files
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/META-INF/com/google/android/update-binary" "MagiskModemPing/META-INF/com/google/android/update-binary"
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/META-INF/com/google/android/updater-script" "MagiskModemPing/META-INF/com/google/android/updater-script"
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module_ping.sh" "MagiskModemPing/system/bin/module_ping.sh"
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module-adbau.sh" "MagiskModemPing/system/bin/module-adbau.sh"
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/system/bin/module-batt.sh" "MagiskModemPing/system/bin/module-batt.sh"
-download_file "https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/module.prop" "MagiskModemPing/module.prop"
+cd /storage/emulated/0
+zip -r modem-android.zip modem-android/
+echo "Magisk Module telah dibuat sebagai modem-android.zip di sdcard"
