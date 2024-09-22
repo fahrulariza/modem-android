@@ -43,7 +43,9 @@ for FILE in "${FILES[@]}"; do
     fi
 done
 
-# Kompres folder menjadi zip
-cd /storage/emulated/0 || { echo "Failed to change directory to /storage/emulated/0"; exit 1; }
-zip -r modem-android.zip modem-android/
+# Kompres file dalam folder menjadi zip tanpa menyertakan folder modem-android
+cd /storage/emulated/0/modem-android || { echo "Failed to change directory"; exit 1; }
+zip -r ../modem-android.zip ./*
+cd ..
+
 echo "Proses selesai. Module tersimpan di /storage/emulated/0/modem-android.zip"
