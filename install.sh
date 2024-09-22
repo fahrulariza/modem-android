@@ -20,7 +20,7 @@ FILES=(
     "system/bin/module-batt.sh"
     "install.sh"
     "module.prop"
-    "readme.md"
+    "README.md"
 )
 
 for FILE in "${FILES[@]}"; do
