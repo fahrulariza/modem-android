@@ -7,9 +7,31 @@ detect_os() {
     Linux*)     OS=Linux;;
     Darwin*)    OS=Mac;;
     CYGWIN*|MINGW*|MSYS*) OS=Windows;;
+    Android*)   OS=Android;;
     *)          OS="UNKNOWN"
   esac
   echo "$OS"
+}
+
+move_to_downloads() {
+  DOWNLOAD_DIR=""
+  
+  if [ "$OS" == "Linux" ]; then
+    DOWNLOAD_DIR="$HOME/Downloads"
+  elif [ "$OS" == "Mac" ]; then
+    DOWNLOAD_DIR="$HOME/Downloads"
+  elif [ "$OS" == "Windows" ]; then
+    DOWNLOAD_DIR="$USERPROFILE\\Downloads"
+  elif [ "$OS" == "Android" ]; then
+    DOWNLOAD_DIR="/sdcard/Download"
+  fi
+
+  if [ -d "$DOWNLOAD_DIR" ]; then
+    mv "MagiskModemPing.zip" "$DOWNLOAD_DIR/"
+    echo "MagiskModemPing.zip moved to $DOWNLOAD_DIR"
+  else
+    echo "Download folder not found. MagiskModemPing.zip not moved."
+  fi
 }
 
 compile_module() {
@@ -27,6 +49,7 @@ main() {
   else
     echo "Detected $OS OS, compiling Magisk module"
     compile_module
+    move_to_downloads
   fi
 }
 
