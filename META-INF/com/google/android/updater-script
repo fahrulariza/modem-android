@@ -1,0 +1,28 @@
+# Updater-script for Magisk Modem Ping Module
+
+ui_print("******************************");
+ui_print("  Installing Magisk Modem Ping Module");
+ui_print("******************************");
+
+# Check for Magisk version
+MAGISK_VER=$(getprop magisk.version)
+MAGISK_VER_CODE=$(getprop magisk.versionCode)
+
+if [ "$MAGISK_VER_CODE" -lt 20000 ]; then
+  ui_print("Error: Minimal Magisk version required is 20.0");
+  abort("Installation aborted due to incompatible Magisk version.");
+fi
+
+ui_print("Magisk version: $MAGISK_VER");
+
+# Mount the system partition for writing
+mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system");
+
+# Extract and install the scripts
+ui_print("Extracting and installing scripts...");
+set_perm(0, 0, 0755, "/system/bin/module_ping.sh");
+set_perm(0, 0, 0755, "/system/bin/module-adbau.sh");
+set_perm(0, 0, 0755, "/system/bin/module-batt.sh");
+
+# End of installation
+ui_print("Installation complete!");
