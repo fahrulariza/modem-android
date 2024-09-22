@@ -9,7 +9,7 @@ Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan 
 2. Jalankan script dengan Termux/Linux:
    Download install.sh
    ```curl
-   curl -O https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/install.sh
+   curl -O https://raw.githubusercontent.com/fahrulariza/modem-android/master/install.sh
    ```
 3. Mengonversi format file teks dari DOS ke Unix
    ```dos2unix
