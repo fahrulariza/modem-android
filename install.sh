@@ -5,7 +5,7 @@ cd ~/modem-android
 # URL Ping yang diset melalui argumen
 URL_PING=${1:-"8.8.8.8"}
 # Menulis URL ke file modem.txt
-echo "$URL_PING" > /sdcard/modem-android/modem.txt
+echo "$URL_PING" > -p ~/modem-android/modem.txt
 # Mengunduh file yang diperlukan
 echo "Mengunduh file untuk Magisk module..."
 wget -P ~/modem-android https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/META-INF/com/google/android/update-binary
