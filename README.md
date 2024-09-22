@@ -42,8 +42,9 @@ Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan 
 1. Download `install.sh` dari GitHub:
 
 2. Jalankan script dengan Termux/Linux:
-
-
+   ```curl
+   curl -O https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/master/install.sh
+   ```
 Jika tidak menyertakan URL, default adalah `8.8.8.8`.
 
 3. Setelah proses selesai, module `modem-android.zip` akan tersimpan di SD card.
