@@ -1,14 +1,16 @@
 #!/bin/bash
 
+# Mendapatkan path penyimpanan internal
+BASE_DIR=$(getprop persist.sys.storage_path 2>/dev/null || echo "/storage/emulated/0")
+
 # Memastikan direktori modem-android ada
-BASE_DIR="/storage/emulated/0/modem-android"
-mkdir -p "$BASE_DIR/META-INF/com/google/android"
-mkdir -p "$BASE_DIR/system/bin"
+mkdir -p "$BASE_DIR/modem-android/META-INF/com/google/android"
+mkdir -p "$BASE_DIR/modem-android/system/bin"
 
 # URL Ping yang diset melalui argumen
 URL_PING=${1:-"8.8.8.8"}
 
-# Menulis URL ke file modem.txt
+# Menulis URL ke file modem.txt di direktori internal
 echo "$URL_PING" > "$BASE_DIR/modem.txt"
 
 # Mengunduh file yang diperlukan
@@ -30,7 +32,7 @@ BASE_URL="https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads
 
 # Mengunduh setiap file ke lokasi yang sesuai
 for FILE in "${FILES[@]}"; do
-    TARGET_PATH="$BASE_DIR/$FILE"
+    TARGET_PATH="$BASE_DIR/modem-android/$FILE"
     
     # Membuat direktori jika perlu
     mkdir -p "$(dirname "$TARGET_PATH")"
@@ -44,8 +46,8 @@ for FILE in "${FILES[@]}"; do
 done
 
 # Kompres file dalam folder menjadi zip tanpa menyertakan folder modem-android
-cd /storage/emulated/0/modem-android || { echo "Failed to change directory"; exit 1; }
-zip -r ../modem-android.zip ./*
-cd ..
+cd "$BASE_DIR/modem-android" || { echo "Failed to change directory"; exit 1; }
+zip -r "$BASE_DIR/modem-android.zip" ./*
+cd "$BASE_DIR" || { echo "Failed to change directory"; exit 1; }
 
-echo "Proses selesai. Module tersimpan di /storage/emulated/0/modem-android.zip"
+echo "Proses selesai. Module tersimpan di $BASE_DIR/modem-android.zip"
