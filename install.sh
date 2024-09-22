@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Mendapatkan path penyimpanan internal
-BASE_DIR=$(getprop persist.sys.storage_path 2>/dev/null || echo "/storage/emulated/0")
+# Menggunakan path default untuk penyimpanan internal
+BASE_DIR="/storage/emulated/0"
 
 # Memastikan direktori modem-android ada
 mkdir -p "$BASE_DIR/modem-android/META-INF/com/google/android"
