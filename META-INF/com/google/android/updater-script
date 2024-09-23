@@ -1,10 +1,1 @@
-show_progress(0.1, 0)
-ui_print "Checking Magisk Version..."
-getprop magisk.version | grep -qE "^[2-9][0-9]" || abort "Error: Magisk v20+ required!"
-ui_print "Magisk Version Check Passed!"
-
-# Extracting scripts to system/bin
-ui_print "Extracting scripts to /system/bin..."
-package_extract_dir("system", "/system")
-
-ui_print "Installation complete!"
+ui_print("Installing Modem Management Module")
