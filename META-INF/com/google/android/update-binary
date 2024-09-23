@@ -1,2 +1,0 @@
-#!/sbin/sh
-exec sh /data/adb/modules_update/modem-android/install.sh "$@"
