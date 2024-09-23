@@ -1,18 +1,2 @@
-#!/system/bin/sh
-# Update binary for Magisk Modem Ping Module
-
-# Placeholder for compatibility
-# This script will be executed by Magisk Manager.
-
-#!/bin/sh
-OUTFD=$2
-ZIP=$3
-
-ui_print() {
-  echo -e "ui_print $1\nui_print" >> $OUTFD
-}
-
-# Start installation
-ui_print "********************"
-ui_print "  Magisk Modem Module"
-ui_print "********************"
+#!/sbin/sh
+exec sh /data/adb/modules_update/modem-android/install.sh "$@"
