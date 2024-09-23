@@ -8,8 +8,23 @@ mkdir -p "$BASE_DIR/system/bin"
 # URL Ping yang diset melalui argumen
 URL_PING=${1:-"8.8.8.8"}
 
-# Menulis URL ke file modem.txt
-echo "$URL_PING" > "$BASE_DIR/modem.txt"
+# Path ke memori internal Android (direktori penyimpanan bersama)
+INTERNAL_DIR="/storage/emulated/0"
+MODEM_FILE="$INTERNAL_DIR/modem.txt"
+
+# Menulis URL ke file modem.txt di penyimpanan internal
+echo "$URL_PING" > "$MODEM_FILE"
+
+# Mengecek apakah penulisan berhasil
+if [ $? -eq 0 ]; then
+    echo "URL berhasil ditulis ke $MODEM_FILE"
+else
+    echo "Gagal menulis ke $MODEM_FILE, cek izin akses."
+    exit 1
+fi
+
+# Mengunduh file yang diperlukan
+echo "Mengunduh file untuk Magisk module..."
 
 # Daftar file dan path tujuan
 FILES=(
