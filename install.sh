@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Memastikan direktori modem-android ada
-BASE_DIR="/storage/emulated/0/modem-android"
+BASE_DIR="/data/adb/modules/modem-android"
 mkdir -p "$BASE_DIR/META-INF/com/google/android"
 mkdir -p "$BASE_DIR/system/bin"
 
@@ -9,10 +9,7 @@ mkdir -p "$BASE_DIR/system/bin"
 URL_PING=${1:-"8.8.8.8"}
 
 # Menulis URL ke file modem.txt
-echo "$URL_PING" > "/storage/emulated/0/modem.txt"
-
-# Mengunduh file yang diperlukan
-echo "Mengunduh file untuk Magisk module..."
+echo "$URL_PING" > "$BASE_DIR/modem.txt"
 
 # Daftar file dan path tujuan
 FILES=(
@@ -36,16 +33,12 @@ for FILE in "${FILES[@]}"; do
     mkdir -p "$(dirname "$TARGET_PATH")"
     
     # Mengunduh file
-    if wget -O "$TARGET_PATH" "$BASE_URL$FILE"; then
-        echo "Successfully downloaded $FILE"
+    if curl -o "$TARGET_PATH" "$BASE_URL$FILE"; then
+        echo "Berhasil mengunduh $FILE"
     else
-        echo "Failed to download $FILE"
+        echo "Gagal mengunduh $FILE"
+        exit 1
     fi
 done
 
-# Kompres file dalam folder menjadi zip tanpa menyertakan folder modem-android
-cd /storage/emulated/0/modem-android || { echo "Failed to change directory"; exit 1; }
-zip -r ../modem-android.zip ./*
-cd ..
-
-echo "Proses selesai. Module tersimpan di /storage/emulated/0/modem-android.zip"
+echo "Proses selesai. Module terinstal di $BASE_DIR"
