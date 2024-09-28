@@ -13,13 +13,10 @@ Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan
  5. jika dalam berhasil melakukan ping pada url maka akan kembali ke perintah no 2. jika tidak berhasil maka ke perintah no 6.
  6. Module akan melakukan pengecekan berulang selama 50 kali percobaan, jika 50 kali percobaan maka module pengaktifkan perintah untuk bertahan selama 30 menit untuk mengulangi ke perintah 1.
 
-### Cara Compile dan Instalasi Magisk Module
-Modul ini kedepannya akan diperbaharui untuk mengelola modem Android seperti pengaturan auto tethering USB, auto debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
-
 ## Cara Install
 
 1. Download module `modem-android.zip` dari GitHub: https://github.com/fahrulariza/modem-android/releases
-2. Buat file `modem.txt` di `/storage/emulated/0/modem.txt` / internat android. isi url seperti `google.com`. Jika tidak menyertakan URL, maka default adalah `8.8.8.8`.
+2. Buat file `modem.txt` di `/storage/emulated/0/modem.txt` / internal storage android. isi url seperti `google.com`. Jika tidak menyertakan URL, maka default adalah `8.8.8.8`.
 3. Install module menggunakan Magisk Manager.
 4. restart Device.
    
@@ -27,3 +24,6 @@ Modul ini kedepannya akan diperbaharui untuk mengelola modem Android seperti pen
 kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalan ulang module dengan merestart ulang device
 
 Selamat menggunakan!
+
+### CATATAN
+Modul ini kedepannya akan diperbaharui untuk mengelola modem Android seperti pengaturan auto tethering USB, auto debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
