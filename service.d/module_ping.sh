@@ -102,12 +102,12 @@ while true; do
 
   # Step 4: Toggle airplane mode and check connectivity
   attempt=0
-  while [ $attempt -lt 5 ];do
+  while [ $attempt -lt 50 ];do
     toggle_airplane_mode
 
     # Wait for a moment before checking again
-    log "Waiting 4 seconds before checking ping..."
-    sleep 2  # Wait for 4 seconds to allow data to activate
+    log "Waiting 2 seconds before checking ping..."
+    sleep 2  # Wait for 2 seconds to allow data to activate
 
     # Check ping again after toggling airplane mode
     if ping_monitor; then
@@ -118,8 +118,8 @@ while true; do
     log "Attempt $attempt failed. Trying again."
   done
 
-  if [ $attempt -ge 30 ]; then
-    log "Ping failed after 30 attempts. Waiting 40 minutes before retrying..."
+  if [ $attempt -ge 50 ]; then
+    log "Ping failed after 50 attempts. Waiting 30 minutes before retrying..."
 
     # Wait for 30 minutes (1800 seconds)
     sleep 1800
