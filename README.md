@@ -21,7 +21,7 @@ Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan
 4. restart Device.
    
 ## Pengaturan Lanjutan
-kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalan ulang module dengan merestart ulang device
+1. kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalankan ulang module dengan merestart ulang device.
 
 Selamat menggunakan!
 
