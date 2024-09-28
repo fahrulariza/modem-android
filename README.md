@@ -6,12 +6,12 @@ Modul ini mengelola smartphone yang di jadikan sebagai modem internet pengaturan
 Modul ini menggunakan algoritma shell abd yang akan memonitor ping dari url yang menjadi indikator dalam melaksanakan tindakan seperti jaringan tidak merespon maka akan beralih ke mode pesawat otomatis untuk mengganti ip address internet pada smartphone.
 
 ### Cara Kerja / Perintah pada module_ping
- 1. Module akan mengecek apakah terpasang simcard operator pada `simcard1`. jika tidak ada simcard maka tahan monitoring sampai ada simcard. jika simcard1 terdeteksi maka lanjutkan ke perintah no 2.
- 2. melakukan pengecekan status sinyal, jika status tidak `connected` maka tahan perintah dan kembalikan ke perintah 1 selanjutnya sampai ada sinyal . jika status `connected` maka lanjutkan ke perintah 3 
- 3. Melakukan Pengecekan apakah pengaturan `DATA` internet aktif. jika nonaktif maka akan mengaktifkan pengaturan `DATA` dan melanjutkan perintah no 3.
- 4. Module akan memonitor url yang diberikan di `modem.txt` yang dibuat di 'internal/modem.txt' / storage internal android. jika tidak ada file modem.txt maka default cek url ping `8.8.8.8`.
+ 1. Module akan mengecek apakah terpasang simcard operator pada `simcard1`. jika tidak ada simcard maka tahan monitoring sampai ada simcard. jika simcard1 terdeteksi maka lanjutkan ke perintah no no 2.
+ 2. melakukan pengecekan status sinyal, jika status tidak `connected` maka tahan perintah dan kembalikan ke perintah 1 selanjutnya sampai ada sinyal . jika status `connected` maka lanjutkan ke perintah no 3 
+ 3. Melakukan Pengecekan apakah pengaturan `DATA` internet aktif. jika nonaktif maka akan mengaktifkan pengaturan `DATA` dan melanjutkan perintah no 4.
+ 4. Module akan memonitor url yang diberikan di `modem.txt` yang dibuat di 'internal/modem.txt' / storage internal android. jika tidak ada file modem.txt maka default cek url ping `8.8.8.8`. lanjut ke perintah no 4.
  5. Jika dalam 2 kali percobaan ping url gagal (dalam 1 kali percobaan selama 2 detik) maka akan otomatis beralih ke mengaktifkan mode pesawat dalam 2 detik lalu nonaktifkan mode pesawat kembali. Melanjutkan ke perintah no 5.
- 6. jika dalam berhasil melakukan ping pada url maka akan kembali ke perintah no 2. jika tidak berhasil maka ke perintah no 6.
+ 6. jika berhasil melakukan ping pada url maka akan kembali ke perintah no 2. jika tidak berhasil maka ke perintah no 6.
  7. Module akan melakukan pengecekan berulang selama 50 kali percobaan, jika 50 kali percobaan maka module pengaktifkan perintah untuk bertahan selama 30 menit untuk mengulangi ke perintah 1.
 
 ## Cara Install
