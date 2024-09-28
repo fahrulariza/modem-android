@@ -20,10 +20,12 @@ Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan
 3. Install module menggunakan Magisk Manager.
 4. restart Device.
    
-## Cara Install
+## Pengaturan Lanjtan
 kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalan ulang module dengan merestart ulang device
 
 Selamat menggunakan!
 
-### CATATAN
-Modul ini kedepannya akan diperbaharui untuk mengelola modem Android seperti pengaturan auto tethering USB, auto debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
+## Catatan Pembuat
+Modul ini kedepannya akan diperbaharui untuk mengelola modem Android seperti pengaturan auto tethering USB, auto debugging ADB, dan manajemen baterai.
+sertakan credit pembuat jika ingin menyebarkan module ini.
+Terimakasih.
