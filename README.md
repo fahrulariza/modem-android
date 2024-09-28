@@ -1,6 +1,10 @@
 # Magisk Modem Android & Management Module
 ### Penjelasan
-Modul ini mengelola smartphone yang di jadikan sebagai modem internet. yang mana sering di gunakan di openwrt 
+Modul ini mengelola smartphone yang di jadikan sebagai modem internet pengaturan usb tethering. yang mana sering di gunakan di openwrt sebagai sumber internet.
+
+### Fungsi
+Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan tindakan seperti jaringan tidak merespon maka akan beralih ke mode pesawat otomatis untuk mengganti ip address smartphone
+
 ### Cara Compile dan Instalasi Magisk Module
 Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
 
