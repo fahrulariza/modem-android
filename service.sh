@@ -7,10 +7,10 @@ MODDIR=${0%/*}
 chmod +x "$MODDIR/service.d/module_ping.sh"
 
 # Menyalin script module_ping.sh ke lokasi /data/adb/service.d/
-cp "$MODDIR/service.d/module_ping.sh" /data/adb/service.d/
+#cp "$MODDIR/service.d/module_ping.sh" /data/adb/service.d/
 
 # Menjalankan module_ping.sh secara otomatis menggunakan sh
-sh /data/adb/service.d/module_ping.sh >> /data/adb/service.d/module_ping.log 2>&1 &
+sh $MODDIR/service.d/module_ping.sh #>> $MODDIR/service.d/module_ping.log 2>&1 &
 
 # Menampilkan log atau pesan di terminal
 echo "Ping monitor installed. Script copied and started from /data/adb/service.d/"
