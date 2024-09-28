@@ -5,6 +5,11 @@ Modul ini mengelola smartphone yang di jadikan sebagai modem internet pengaturan
 ### Fungsi
 Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan tindakan seperti jaringan tidak merespon maka akan beralih ke mode pesawat otomatis untuk mengganti ip address smartphone
 
+### Cara Kerja
+ 1. Module akan memonitor url yang diberikan di 'modem.txt' yang dibuat di 'internal/modem.txt' / storage internal android
+ 2. Jika dalam 2 kali percobaan ping url gagal (dalam 1 kali percobaan selama 2 detik) maka akan otomatis beralih ke mengaktifkan mode pesawat dalam 2 detik lalu nonaktifkan mode pesawat kembali.
+ 3.    
+
 ### Cara Compile dan Instalasi Magisk Module
 Modul ini mengelola modem Android, pengaturan tethering USB, debugging ADB, dan manajemen baterai. Ikuti langkah-langkah berikut untuk instalasi:
 
