@@ -20,7 +20,7 @@ Modul ini akan memonitor ping dari url yang menjadi indikator dalam melaksanakan
 3. Install module menggunakan Magisk Manager.
 4. restart Device.
    
-## Pengaturan Lanjtan
+## Pengaturan Lanjutan
 kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalan ulang module dengan merestart ulang device
 
 Selamat menggunakan!
