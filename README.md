@@ -1,9 +1,9 @@
 # Magisk Modem Android & Management Module
 ### Penjelasan
-Modul ini mengelola smartphone yang di jadikan sebagai modem internet pengaturan usb tethering. yang mana sering di gunakan di openwrt sebagai sumber internet/usb0. biasanya di gunakan untuk peruntukan VPN seperti openclash dan lain". intinya sebagai monitoring site bug yang sering bengong.
+Modul ini mengelola smartphone yang di jadikan sebagai modem internet melalui pengaturan usb tethering. yang mana sering di gunakan di openwrt untuk sebagai sumber internet/`usb0`. biasanya di gunakan untuk peruntukan VPN seperti openclash dan lain". intinya sebagai monitoring site bug yang sering bengong.
 
 ### Fungsi
-Modul ini menggunakan algoritma shell abd yang akan memonitor ping dari url yang menjadi indikator dalam melaksanakan tindakan seperti jaringan tidak merespon maka akan beralih ke mode pesawat otomatis untuk mengganti ip address internet pada smartphone.
+Modul ini menggunakan algoritma `shell abd` yang akan memonitor ping dari url yang menjadi indikator dalam melaksanakan tindakan seperti jaringan tidak merespon maka akan beralih ke mode pesawat otomatis untuk mengganti ip address internet pada smartphone.
 
 ### Cara Kerja / Perintah pada module_ping
  1. Module akan mengecek apakah terpasang simcard operator pada `simcard1`. jika tidak ada simcard maka tahan monitoring sampai ada simcard. jika simcard1 terdeteksi maka lanjutkan ke perintah no no 2.
