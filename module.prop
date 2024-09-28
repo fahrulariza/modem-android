@@ -1,9 +1,0 @@
-id=modem-management
-name=Modem Management Module
-version=1.0
-versionCode=1
-author=Fahrul Ariza
-description=Modul ini mengelola modem Android untuk pengecekan SIM card, sinyal, dan pengaturan ping, serta manajemen tethering dan baterai.
-support=true
-minMagisk=20000
-updateJson=https://raw.githubusercontent.com/fahrulariza/modem-android/update/gphoto.json
