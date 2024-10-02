@@ -22,7 +22,7 @@ Modul ini menggunakan algoritma `shell abd` yang akan memonitor ping dari url ya
 4. restart Device.
    
 ## Pengaturan Lanjutan
-1. kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` dan menjalankan ulang module dengan merestart ulang device.
+1. kamu bisa mengganti URL ping dengan memberikan URL baru pada `modem.txt` tanpa menjalankan ulang module atau merestart ulang device.
 2. untuk setiap log di sertakan di lokasi `/storage/emulated/0/Module-log.txt` / internal storage android dengan batasan file log sebesar 250kb
 
 Selamat menggunakan!
