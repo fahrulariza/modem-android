@@ -1,9 +1,9 @@
 id=modem_ping_monitor
 name=Modem Ping Monitor
-version=1.0
-versionCode=1
+version=v1.330
+versionCode=133
 author=Fahrul Ariza
 minMagisk=20200
 description=Monitor modem connection and ping status to maintain stable network connectivity.
 support=https://github.com/fahrulariza
-updateJson=https://raw.githubusercontent.com/fahrulariza/GooglePhoto/update/gphoto.json
+updateJson=https://raw.githubusercontent.com/fahrulariza/modem-android/refs/heads/update/modem-android.json

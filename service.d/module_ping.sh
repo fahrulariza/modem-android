@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Log function with size check
+# Fungsi log dengan pengecekan ukuran file log
 log() {
   if [ -w /sdcard ]; then
     log_file="/sdcard/Module-log.txt"
@@ -8,120 +8,132 @@ log() {
     log_size=$(stat -c%s "$log_file")
     if [ $log_size -gt 256000 ]; then
       echo "" > $log_file
-      log "Log file size exceeded 250KB. Log file recreated."
+      log "Ukuran file log melebihi 250KB. File log dibuat ulang."
     fi
   else
-    echo "Error: Cannot write to /sdcard. Check permissions."
+    echo "Error: Tidak bisa menulis ke /sdcard. Periksa izin."
   fi
 }
 
-# Function to check SIM card with shorter wait
+# Fungsi untuk mengecek keberadaan kartu SIM
 check_sim() {
-  for i in {1..10}; do
-    if [ -n "$(getprop gsm.sim.state)" ]; then
-      log "SIM card detected."
-      return 0
-    fi
-    log "No SIM card detected. Waiting..."
-    sleep 2  # Reduced wait time between checks
-  done
-  log "SIM card not detected after multiple attempts."
-  return 1
+  if [ -n "$(getprop gsm.sim.state)" ]; then
+    log "Kartu SIM terdeteksi."
+    return 0  # Lanjutkan ke perintah berikutnya jika terdeteksi
+  fi
+  log "Kartu SIM tidak terdeteksi."
+  return 1  # Jika tidak terdeteksi, hentikan dan ulangi loop
 }
 
-# Function to check signal and enable mobile data, with faster retries
+# Fungsi untuk memeriksa sinyal dan mengaktifkan data seluler
 check_signal_and_data() {
-  for i in {1..10}; do
-    if [ -n "$(getprop gsm.network.type)" ]; then
-      log "Signal detected. Locking to LTE."
-      # Lock to LTE
-      su -c "settings put global preferred_network_mode 11"
+  # Mengecek apakah ada sinyal jaringan dengan memeriksa properti 'gsm.network.type'
+  if [ -n "$(getprop gsm.network.type)" ]; then
+    log "Sinyal terdeteksi. Mengunci ke LTE."
+    
+    # Mengunci jaringan ke mode LTE
+    su -c "settings put global preferred_network_mode 11"
 
-      # Check and enable mobile data
-      if [ "$(getprop gsm.data.state)" != "CONNECTED" ]; then
-        log "Mobile data is not active. Enabling data."
-        su -c "svc data enable" || log "Error: Failed to enable mobile data."
-      else
-        log "Mobile data is already active."
-      fi
-      return 0
+    # Mengecek status data seluler, apakah sudah aktif atau belum
+    if [ "$(getprop gsm.data.state)" != "CONNECTED" ]; then
+      log "Data seluler tidak aktif. Mengaktifkan data."
+      
+      # Perintah untuk mengaktifkan data seluler
+      su -c "svc data enable" || log "Error: Gagal mengaktifkan data seluler."
+    else
+      log "Data seluler sudah aktif."
     fi
-    log "Waiting for network signal..."
-    sleep 2  # Reduced wait time between checks
-  done
-  log "Signal not detected after multiple attempts."
-  return 1
+    return 0  # Kembali jika sinyal dan data sudah aktif
+  fi
+
+  # Jika sinyal tidak terdeteksi, tunggu 2 detik
+  log "Sinyal tidak terdeteksi, menunggu 2 detik..."
+  sleep 2
+
+  log "Sinyal masih tidak terdeteksi setelah pengecekan."
+  return 1  # Mengembalikan nilai gagal jika sinyal tidak ditemukan
 }
 
-# Function to monitor ping (2 attempts, 1 ping each with 2 seconds timeout)
+# Fungsi untuk memantau konektivitas melalui ping secara terus-menerus
 ping_monitor() {
   ping_address=$(cat /sdcard/modem.txt 2>/dev/null || echo "8.8.8.8")
-  for i in {1..2}; do
-    if ping -c 1 -W 2 $ping_address > /dev/null; then
-      log "Ping successful to $ping_address"
-      return 0
-    else
-      log "Ping failed to $ping_address (attempt $i)"
-    fi
-  done
-  return 1
+  if ping -c 1 -W 2 $ping_address > /dev/null; then
+    log "Ping berhasil ke $ping_address"
+    return 0  # Kembali jika ping berhasil
+  else
+    log "Ping gagal ke $ping_address."
+    return 1  # Kembali jika ping gagal
+  fi
 }
 
-# Function to toggle airplane mode
+# Fungsi untuk mengaktifkan/nonaktifkan mode pesawat
 toggle_airplane_mode() {
-  log "Activating airplane mode..."
+  log "Mengaktifkan mode pesawat..."
   su -c "settings put global airplane_mode_on 1"
   su -c "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true"
-  sleep 1  # Wait for 1 second
-  log "Deactivating airplane mode..."
+  sleep 1  # Tunggu 1 detik
+  log "Menonaktifkan mode pesawat..."
   su -c "settings put global airplane_mode_on 0"
   su -c "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false"
 
-  log "Waiting for network to reconnect after airplane mode is off..."
-  sleep 2  # Add delay for network to fully reconnect and data to be available
+  log "Menunggu jaringan terhubung kembali setelah mode pesawat dimatikan..."
+  sleep 2  # Tunggu untuk jaringan kembali aktif
 }
 
-# Main loop
+# Loop utama
 while true; do
-  # Step 1: Check SIM card
+  # Langkah 1: Memeriksa kartu SIM
   if ! check_sim; then
-    continue  # Retry if SIM not detected
+    continue  # Ulangi loop jika kartu SIM tidak terdeteksi
   fi
 
-  # Step 2: Check signal and enable mobile data
+  # Langkah 2: Memeriksa sinyal dan mengaktifkan data seluler (1 kali pengecekan)
   if ! check_signal_and_data; then
-    continue  # Retry if signal not detected
+    continue  # Ulangi loop jika sinyal tidak terdeteksi
   fi
 
-  # Step 3: Ping monitor
-  if ping_monitor; then
-    continue  # Restart loop if ping is successful
-  else
-    log "Ping failed after 2 attempts. Proceeding to Step 4."
-  fi
-
-  # Step 4: Toggle airplane mode and check connectivity
-  attempt=0
-  while [ $attempt -lt 5 ];do
-    toggle_airplane_mode
-
-    # Wait for a moment before checking again
-    log "Waiting 4 seconds before checking ping..."
-    sleep 2  # Wait for 4 seconds to allow data to activate
-
-    # Check ping again after toggling airplane mode
+  # Langkah 3: Memantau koneksi dengan ping secara terus-menerus
+  attempt=0  # Inisialisasi percobaan ping
+  while true; do
     if ping_monitor; then
-      break  # Exit attempt loop if ping is successful
+      attempt=0  # Reset percobaan ke 0 jika ping berhasil
+      sleep 2  # Tunggu sejenak sebelum melakukan ping lagi
+    else
+      attempt=$((attempt + 1))
+      log "Ping gagal (percobaan $attempt)."
+      
+      # Jika ping gagal lebih dari 2 kali, lanjutkan ke Langkah 4
+      if [ $attempt -ge 2 ]; then
+        log "Ping gagal setelah 2 percobaan. Lanjut ke langkah 4."
+        break  # Keluar dari loop ping dan masuk ke mode pesawat (Langkah 4)
+      fi
     fi
-
-    attempt=$((attempt + 1))
-    log "Attempt $attempt failed. Trying again."
   done
 
-  if [ $attempt -ge 30 ]; then
-    log "Ping failed after 30 attempts. Waiting 40 minutes before retrying..."
+  # Langkah 4: Mengaktifkan/menonaktifkan mode pesawat dan cek koneksi
+  if [ $attempt -ge 2 ]; then
+    attempt=0  # Reset percobaan untuk mode pesawat
+    while [ $attempt -lt 50 ]; do
+      toggle_airplane_mode
 
-    # Wait for 30 minutes (1800 seconds)
-    sleep 1800
+      # Tunggu sebelum melakukan pengecekan ping lagi
+      log "Menunggu 2 detik sebelum cek ping..."
+      sleep 2  # Waktu tunggu agar data kembali aktif
+
+      # Coba cek ping lagi setelah mode pesawat
+      if ping_monitor; then
+        log "Ping berhasil setelah mode pesawat dinonaktifkan."
+        attempt=0  # Reset percobaan ke 0 jika ping berhasil
+        break  # Keluar dari loop percobaan jika ping berhasil
+      fi
+
+      attempt=$((attempt + 1))
+      log "Percobaan $attempt gagal. Mencoba lagi."
+    done
+  fi
+
+  if [ $attempt -ge 50 ]; then
+    log "Ping gagal setelah 50 percobaan. Menunggu 30 menit sebelum mencoba lagi..."
+    sleep 1800  # Tunggu 30 menit sebelum mencoba lagi
   fi
 done
