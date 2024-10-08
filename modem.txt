@@ -1,0 +1,7 @@
+ping.url=8.8.8.8
+ping.wait=2
+debugging=yes
+log.size=250
+cek.sim=yes
+gsm.sim.state=LOADED
+gsm.network.type=11
