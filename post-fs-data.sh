@@ -1,7 +1,22 @@
 #!/system/bin/sh
-# Please don't hardcode /magisk/modname/... ; instead, please use $MODDIR/...
-# This will make your scripts compatible even if Magisk change its mount point in the future
-MODDIR=${0%/*}
 
-# This script will be executed in post-fs-data mode
-# More info in the main Magisk thread
+# Mematikan USB tethering dan WiFi
+svc usb setFunctions ''
+svc wifi disable
+
+# Tunggu beberapa detik untuk memastikan perubahan diterapkan
+sleep 2
+
+# Mengatur IP dan subnet
+IP_ADDRESS="192.168.10.1"
+SUBNET_MASK="255.255.255.0"
+
+# Mengatur iptables untuk mengatur IP default
+ip addr add $IP_ADDRESS/24 dev wlan0
+
+# Mengatur NAT untuk berbagi koneksi
+iptables -t nat -A POSTROUTING -o rmnet0 -j MASQUERADE
+
+# Mengaktifkan kembali WiFi dan USB tethering
+svc wifi enable
+svc usb setFunctions rndis

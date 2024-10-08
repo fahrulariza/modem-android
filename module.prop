@@ -1,7 +1,7 @@
 id=modem_ping_monitor
 name=Modem Ping Monitor
-version=v1.330
-versionCode=133
+version=v1.359
+versionCode=1359
 author=Fahrul Ariza
 minMagisk=20200
 description=Monitor modem connection and ping status to maintain stable network connectivity.

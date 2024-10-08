@@ -1,1 +1,9 @@
 #MAGISK
+ui_print("Installing Magisk Module...");
+
+mount("ext4", "/dev/block/bootdevice/by-name/system", "/system", "ro", "");
+
+# Set permission for post-fs-data.sh
+set_perm(0, 0, 0755, "/system/bin/post-fs-data.sh");
+
+ui_print("Magisk Module installed successfully!");
