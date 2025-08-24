@@ -1,4 +1,11 @@
 # Magisk Modem Android & Management Module
+
+![License](https://img.shields.io/github/license/fahrulariza/modem-android)
+[![GitHub All Releases](https://img.shields.io/github/downloads/fahrulariza/modem-android/total)](https://github.com/fahrulariza/modem-android/releases)
+![Total Commits](https://img.shields.io/github/commit-activity/t/fahrulariza/modem-android)
+![Top Language](https://img.shields.io/github/languages/top/fahrulariza/modem-android)
+[![Open Issues](https://img.shields.io/github/issues/fahrulariza/modem-android)](https://github.com/fahrulariza/modem-android/issues)
+
 ### Penjelasan
 Modul ini mengelola smartphone yang di jadikan sebagai modem internet melalui pengaturan usb tethering. yang mana sering di gunakan di openwrt untuk sebagai sumber internet/`usb0`. biasanya di gunakan untuk peruntukan VPN seperti openclash dan lain". intinya sebagai monitoring site bug yang sering bengong.
 
